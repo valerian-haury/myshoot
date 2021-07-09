@@ -8,6 +8,7 @@ const initialState = {
             shooter: 'Valérian Haury',
             weapon: 1,
             date: new Date(),
+            color: '#ea6969',
             program: [
                 {score: 8, direction: 'B'},
                 {score: 10, direction: 'C'},
@@ -22,6 +23,7 @@ const initialState = {
             shooter: 'Valérian Haury',
             weapon: 1,
             date: new Date(),
+            color: '#b9d948',
             program: [
                 {score: 8, direction: 'B'},
                 {score: 10, direction: 'C'},
