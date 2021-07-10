@@ -1,0 +1,26 @@
+.targets-container {
+    width: 100%;
+    display: flex;
+}
+
+.target-article {
+    border: 2px solid #e4e4e4;
+    margin: 10px;
+    display: grid;
+}
+
+.selected {
+    border: 2px solid #A0D8F8;
+}
+
+.target-img {
+    max-width: 200px;
+    padding: 15px;
+    fill: #79c2e5;
+}
+
+.target-title {
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+}

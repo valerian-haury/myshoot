@@ -1,10 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit"
+import {nanoid} from 'nanoid'
 
 const initialState = {
     programs: [
         {
             id: '1',
-            title:'Tir obligatoire 2021',
+            title: 'Tir obligatoire 2021',
             shooter: 'Valérian Haury',
             weapon: 1,
             date: new Date(),
@@ -19,7 +20,7 @@ const initialState = {
         },
         {
             id: '2',
-            title:'Tir obligatoire 2020',
+            title: 'Tir obligatoire 2020',
             shooter: 'Valérian Haury',
             weapon: 1,
             date: new Date(),
@@ -40,9 +41,32 @@ const initialState = {
 const shootingProgramsSlice = createSlice({
     name: 'ShootingPrograms',
     initialState,
-    reducers: {}
+    reducers: {
+        shootingProgramAdded: {
+            reducer(state, action) {
+                state.shootingPrograms.programs.push(action.payload)
+            },
+            prepare(title, shooter, weapon, date, program) {
+                var randomColor = require('randomcolor')
+                return {
+                    id: nanoid(),
+                    title: title,
+                    shooter: shooter,
+                    weapon: weapon,
+                    date: date,
+                    color: randomColor(),
+                    program: program
+                }
+            }
+        }
+    }
 })
+
+export const { shootingProgramAdded } = shootingProgramsSlice.actions
 
 export default shootingProgramsSlice.reducer
 
 export const selectAllPrograms = state => state.shootingPrograms.programs
+
+export const selectProgramById = (state, programId) =>
+    state.shootingPrograms.programs.find(program => program.id === programId)
