@@ -1,0 +1,9 @@
+.direction-icon {
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.direction-selected {
+    border: 2px solid #79c2e5;
+    border-radius: 100px;
+}

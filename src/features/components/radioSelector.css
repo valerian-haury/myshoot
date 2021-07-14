@@ -1,0 +1,50 @@
+.radio-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    position: relative;
+    padding: 5px 0 20px 0;
+}
+
+.radio-article {
+    border: 2px solid #e4e4e4;
+    border-radius: 5px;
+    margin: 10px;
+    display: grid;
+    position: relative;
+}
+
+.radio-selected {
+    border: 2px solid #A0D8F8;
+}
+
+.target-img {
+    max-width: 100px;
+    padding: 15px;
+    fill: #79c2e5;
+}
+
+.weapon-img {
+    max-width: 150px;
+    padding: 15px;
+    fill: #79c2e5;
+}
+
+.radio-title {
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+}
+
+.check-icon {
+    color: #79c2e5;
+    font-size: 20px;
+    position: absolute;
+    right: -9px;
+    top: -9px;
+}
+
+.label {
+    padding-left: 5px;
+}
