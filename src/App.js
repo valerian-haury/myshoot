@@ -5,6 +5,7 @@ import {ShootingProgramsList} from "./features/shootingPrograms/ShootingPrograms
 import {AddShootingProgram} from "./features/shootingPrograms/AddShootingProgram";
 import {NavBar} from "./features/shootingPrograms/Navbar";
 import {Layout} from "antd";
+import {EditShootingProgram} from "./features/shootingPrograms/EditShootingProgram";
 
 const {Content, Footer} = Layout;
 
@@ -27,13 +28,13 @@ function App() {
                                     </>
                                 )}
                             />
-                            {/*<Route exact path="/posts/:postId" component={SinglePostPage} />*/}
-                            <Route exact path="/addShootingProgram" render={() => <AddShootingProgram/>}/>
+                            <Route exact path="/program/:programId" component={EditShootingProgram}/>
+                            <Route exact path="/addShootingProgram" component={AddShootingProgram}/>
                             <Redirect to="/"/>
                         </Switch>
                     </div>
                 </Content>
-                <Footer style={{textAlign: 'center'}}>HEG IG Bachelor degree ©2021 - by V.HAURY</Footer>*/
+                <Footer style={{textAlign: 'center'}}>HEG IG Bachelor degree ©2021 - by V.HAURY</Footer>
             </Layout>
         </Router>
 

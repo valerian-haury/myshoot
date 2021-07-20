@@ -1,6 +1,8 @@
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
-import {shootingProgramAdded} from "./shootingProgramsSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+
+import {selectProgramById, shootingProgramUpdated} from "./shootingProgramsSlice";
 import {TargetSelector} from "../components/TargetSelector";
 
 import {Form, Input, Button, DatePicker, Select} from "antd";
@@ -12,18 +14,39 @@ import {ProgramTable} from "../components/ProgramTable";
 
 const {Option} = Select
 
-export const AddShootingProgram = () => {
-    const [title, setTitle] = useState('')
-    const [shooter, setShooter] = useState('')
-    const [targetId, setTargetId] = useState(0)
-    const [weaponId, setWeaponId] = useState(0)
-    const [date, setDate] = useState(new Date())
-    const [program, setProgram] = useState([{key: 1, score: null, direction: ''}])
-    const [programLenght, setProgramLenght] = useState(1)
+function clone(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
+}
+
+export const EditShootingProgram = ({match}) => {
+
+    const {programId} = match.params
+    const programData = Object.assign({}, useSelector(state => selectProgramById(state, programId)))
+
+    const initialProgram = []
+    programData.program.forEach((shot, i) => initialProgram.push(clone(shot)))
+
+
+    const [day, month, year] = programData.date.split('/')
+    const formatedDate = new Date(year, month - 1, day)
+
+    const [title, setTitle] = useState(programData.title)
+    const [shooter, setShooter] = useState(programData.shooter)
+    const [targetId, setTargetId] = useState(programData.targetId)
+    const [weaponId, setWeaponId] = useState(programData.weaponId)
+    const [date, setDate] = useState(formatedDate)
+    const [program, setProgram] = useState(initialProgram)
+    const [programLenght, setProgramLenght] = useState(programData.program.length)
 
     const [form] = Form.useForm();
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const handleSelectorClick = (e) => {
         const [name, id] = e.currentTarget.id.split('-')
@@ -35,17 +58,6 @@ export const AddShootingProgram = () => {
                 setWeaponId(parseInt(id))
                 break;
         }
-    }
-
-    const clearState = () => {
-        setTitle('')
-        setShooter('')
-        setTargetId(0)
-        setWeaponId(0)
-        setDate(new Date())
-        setProgramLenght(1)
-        setProgram([{key: 1, score: null, direction: ''}])
-        form.resetFields()
     }
 
     const handleProgramTableChange = (newProgram) => {
@@ -87,22 +99,25 @@ export const AddShootingProgram = () => {
     const isScoreNotNull = (currentValue) => currentValue.score !== null;
     const isDirectionSet = (currentValue) => currentValue.direction !== '';
     const formatedProgram = program.slice(0, programLenght)
-    const canSave = ([title, shooter].every(Boolean) && formatedProgram.every(isScoreNotNull) && formatedProgram.every(isDirectionSet))
+    const canEdit = ([title, shooter].every(Boolean) && formatedProgram.every(isScoreNotNull) && formatedProgram.every(isDirectionSet))
 
     const onFinish = () => {
-        if (canSave) {
+        if (canEdit) {
             dispatch(
-                shootingProgramAdded(
-                    title,
-                    shooter,
-                    weaponId,
-                    targetId,
-                    date.toLocaleDateString(),
-                    formatedProgram
+                shootingProgramUpdated(
+                    {
+                        id: programId,
+                        title,
+                        shooter,
+                        weaponId,
+                        targetId,
+                        date: date.toLocaleDateString(),
+                        program: formatedProgram
+                    }
                 )
             )
         }
-        clearState()
+        history.push(`/`)
     }
 
     const onFinishFailed = () => {
@@ -123,14 +138,17 @@ export const AddShootingProgram = () => {
             <Form
                 name="basic"
                 form={form}
+                initialValues={{
+                    remember: true,
+                }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
             >
-                <h2>Ajouter un nouveau programme de tir</h2>
+                <h2>Modifier le programme de tir</h2>
                 <Form.Item
                     label="Titre"
                     name="title"
-                    value={title}
+                    initialValue={title}
                     rules={[
                         {
                             required: true,
@@ -143,6 +161,7 @@ export const AddShootingProgram = () => {
                 <Form.Item
                     label="Tireur"
                     name="shooter"
+                    initialValue={shooter}
                     rules={[
                         {
                             required: true,
@@ -170,7 +189,7 @@ export const AddShootingProgram = () => {
                 <WeaponsSelector weaponsId={weaponId} onClick={handleSelectorClick}/>
                 <div className="divfix">
                     <Form.Item>
-                        <Button className={"submit-button"} type="primary" htmlType="submit" disabled={!canSave}>
+                        <Button className={"submit-button"} type="primary" htmlType="submit" disabled={!canEdit}>
                             SAUVEGARDER
                         </Button>
                     </Form.Item>
@@ -183,7 +202,7 @@ export const AddShootingProgram = () => {
                             <Option key={number} value={number}>{number}</Option>))}
                     </Select>
                 </Form.Item>
-                <ProgramTable lenght={programLenght} program={program} onChange={handleProgramTableChange}/>
+                <ProgramTable lenght={programLenght} program={formatedProgram} onChange={handleProgramTableChange}/>
             </div>
         </section>
     )

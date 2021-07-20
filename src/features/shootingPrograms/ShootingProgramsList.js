@@ -41,7 +41,7 @@ export const ShootingProgramsList = () => {
         <CustomCard
             key={program.id}
             title={program.title}
-            description={program.shooter + " - " + program.date.toLocaleDateString()}
+            description={program.shooter + " - " + program.date}
             color={program.color}
             programId={program.id}
         />

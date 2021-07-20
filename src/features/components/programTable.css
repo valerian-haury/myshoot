@@ -7,3 +7,32 @@
     border: 2px solid #79c2e5;
     border-radius: 100px;
 }
+
+.divfix {
+    bottom: 0px;
+    left: 25px;
+    position: fixed;
+    z-index: 3000;
+}
+
+.submit-button {
+    background-color: #79c2e5;
+    width: 180px;
+    height: 40px;
+    border-radius: 100px;
+    border: none;
+    font-weight: bold;
+}
+
+.submit-button:hover {
+
+    background-color: #1890ff;
+}
+
+.submit-button:disabled {
+    background-color: #cfcfcf;
+}
+
+.submit-button:disabled:hover {
+    background-color: #cfcfcf;
+}

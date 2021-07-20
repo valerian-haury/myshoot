@@ -1,6 +1,6 @@
 import React from "react";
-import {Table, InputNumber} from "antd";
-import { CloseCircleFilled } from "@ant-design/icons";
+import {Table, InputNumber, Form} from "antd";
+import {CloseCircleFilled} from "@ant-design/icons";
 import './programTable.css'
 
 import T from "../../images/arrows/top.svg"
@@ -34,6 +34,7 @@ export const ProgramTable = ({lenght, program, onChange}) => {
     const onScoreInputChanged = (key, newScore) => {
 
         const newProgram = program.slice() // make a copy of the props
+
         const newShot = newProgram.find(shot => shot.key === key) // get the modified shot
         newShot.score = newScore // mutate the value by reference
 
@@ -41,7 +42,7 @@ export const ProgramTable = ({lenght, program, onChange}) => {
     }
 
     const onDirectionClicked = (key, e) => {
-        const newDirection =  e.target.name
+        const newDirection = e.target.name
         const newProgram = program.slice() // make a copy of the props
         const newShot = newProgram.find(shot => shot.key === key) // get the modified shot
         newShot.direction = newDirection // mutate the value by reference
@@ -57,9 +58,7 @@ export const ProgramTable = ({lenght, program, onChange}) => {
             dataIndex: 'score',
             key: 'score',
             render: (score, shot) => (
-
-                <InputNumber min={0} max={10} defaultValue={score} style={{ maxWidth: 60}}
-                             onChange={(newScore) => onScoreInputChanged(shot.key, newScore)}/>
+                <ScoreInput score={score} shot={shot}/>
             )
         },
         {
@@ -79,7 +78,8 @@ export const ProgramTable = ({lenght, program, onChange}) => {
                     style={{
                         color: "#e55454",
                         fontSize: "15px",
-                        display: ((shot.direction === '') || (shot.score === null)) ? "" : "none"}}
+                        display: ((shot.direction === '') || (shot.score === null)) ? "" : "none"
+                    }}
                 />
             )
         }
@@ -100,6 +100,14 @@ export const ProgramTable = ({lenght, program, onChange}) => {
             <>
                 {renderDirectionIcon}
             </>
+        )
+    }
+
+    const ScoreInput = ({score, shot}) => {
+        return (
+            <InputNumber min={0} max={10} style={{maxWidth: 60}} defaultValue={score}
+                         onChange={(newScore) => onScoreInputChanged(shot.key, newScore)}/>
+
         )
     }
 
