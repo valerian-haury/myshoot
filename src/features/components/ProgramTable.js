@@ -27,7 +27,7 @@ const directionIcons = [
 ]
 
 
-export const ProgramTable = ({lenght, program, onChange}) => {
+export const ProgramTable = ({lenght, program, maxScore, onChange}) => {
 
     const formatedProgram = program.slice(0, lenght)
 
@@ -78,7 +78,7 @@ export const ProgramTable = ({lenght, program, onChange}) => {
                     style={{
                         color: "#e55454",
                         fontSize: "15px",
-                        display: ((shot.direction === '') || (shot.score === null)) ? "" : "none"
+                        display: ((shot.direction === '') || (shot.score === null) || (shot.score > maxScore)) ? "" : "none"
                     }}
                 />
             )
@@ -105,7 +105,7 @@ export const ProgramTable = ({lenght, program, onChange}) => {
 
     const ScoreInput = ({score, shot}) => {
         return (
-            <InputNumber min={0} max={10} style={{maxWidth: 60}} defaultValue={score}
+            <InputNumber min={1} max={maxScore} style={{maxWidth: 60}} defaultValue={score}
                          onChange={(newScore) => onScoreInputChanged(shot.key, newScore)}/>
 
         )

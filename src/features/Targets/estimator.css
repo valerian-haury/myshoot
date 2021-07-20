@@ -1,0 +1,32 @@
+.generate-button {
+    background-color: #79c2e5;
+    color: white;
+    width: 180px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+}
+
+.generate-button:hover {
+    background-color: #1890ff;
+    color: white;
+}
+
+.generate-button:focus {
+    background-color: #79c2e5;
+    color: white;
+}
+
+.generate-button:focus:hover {
+    background-color: #1890ff;
+    color: white;
+}
+
+.generate-button:disabled {
+    background-color: #cfcfcf;
+}
+
+.generate-button:disabled:hover {
+    background-color: #cfcfcf;
+}

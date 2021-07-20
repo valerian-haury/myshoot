@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 
 import {selectProgramById, shootingProgramUpdated} from "./shootingProgramsSlice";
-import {TargetSelector} from "../components/TargetSelector";
+import {TargetSelector} from "../Targets/TargetSelector";
 
 import {Form, Input, Button, DatePicker, Select} from "antd";
 import locale from "antd/es/date-picker/locale/fr_FR";

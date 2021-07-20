@@ -64,7 +64,7 @@ const shootingProgramsSlice = createSlice({
         shootingProgramUpdated(state, action) {
             const {id, title, shooter, weaponId, targetId, date, program} = action.payload
             const existingProgram = state.find(p => p.id === id)
-            if(existingProgram) {
+            if (existingProgram) {
                 existingProgram.title = title
                 existingProgram.shooter = shooter
                 existingProgram.weaponId = weaponId
@@ -76,8 +76,7 @@ const shootingProgramsSlice = createSlice({
 
         shootingProgramDeleted(state, action) {
             const {id} = action.payload
-            const existingProgram = state.find(p => p.id === id)
-            console.log(state.indexOf(existingProgram))
+            state.filter(item => item.id !== id)
         }
     }
 })
