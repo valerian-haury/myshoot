@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 import {shootingProgramAdded} from "./shootingProgramsSlice";
 import {TargetSelector} from "../Targets/TargetSelector";
 
@@ -26,6 +27,7 @@ export const AddShootingProgram = () => {
     const [form] = Form.useForm();
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const handleSelectorClick = (e) => {
         const [name, content] = e.currentTarget.id.split('-')
@@ -109,6 +111,7 @@ export const AddShootingProgram = () => {
             )
         }
         clearState()
+        history.push("/")
     }
 
     const onFinishFailed = () => {

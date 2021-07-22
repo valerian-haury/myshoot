@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit"
+import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import {nanoid} from 'nanoid'
 
 const initialState = [
@@ -35,6 +35,11 @@ const initialState = [
         ]
     }
 ]
+
+export const fetchShootingPrograms = createAsyncThunk('shootingPrograms/fetchPrograms', async () => {
+    const response = initialState
+    return response
+})
 
 const shootingProgramsSlice = createSlice({
     name: 'shootingPrograms',
@@ -76,7 +81,13 @@ const shootingProgramsSlice = createSlice({
 
         shootingProgramDeleted(state, action) {
             const {id} = action.payload
-            state.filter(item => item.id !== id)
+            const existingProgram = state.find(p => p.id === id)
+            if (existingProgram) {
+                const index = state.indexOf(existingProgram)
+                state.splice(index, 1)
+            }
+
+            //state.filter(item => item.id !== id)
         }
     }
 })

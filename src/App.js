@@ -3,9 +3,11 @@ import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom
 
 import {ShootingProgramsList} from "./features/shootingPrograms/ShootingProgramsList";
 import {AddShootingProgram} from "./features/shootingPrograms/AddShootingProgram";
-import {NavBar} from "./features/shootingPrograms/Navbar";
+import {NavBar} from "./features/components/Navbar";
 import {Layout} from "antd";
 import {EditShootingProgram} from "./features/shootingPrograms/EditShootingProgram";
+import {AddShootingProgram_v2} from "./features/shootingPrograms/AddShootingProgram_v2";
+import {EditShootingProgram_v2} from "./features/shootingPrograms/EditShootingProgram_v2";
 
 const {Content, Footer} = Layout;
 
@@ -28,9 +30,10 @@ function App() {
                                     </>
                                 )}
                             />
-                            <Route exact path="/program/:programId" component={EditShootingProgram}/>
-                            <Route exact path="/addShootingProgram" component={AddShootingProgram}/>
+                            <Route exact path="/program/:programId" component={EditShootingProgram_v2}/>
+                            <Route exact path="/addShootingProgram" component={AddShootingProgram_v2}/>
                             <Redirect to="/"/>
+                            <Route path='*' exact={true} render={() => (<h1>HOP</h1>)} />
                         </Switch>
                     </div>
                 </Content>

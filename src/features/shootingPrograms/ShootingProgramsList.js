@@ -1,5 +1,5 @@
 import React from "react"
-import {Card} from 'antd';
+import {Card, Spin} from 'antd';
 import {DeleteOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 
@@ -14,14 +14,15 @@ export const ShootingProgramsList = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const programs = useSelector(selectAllPrograms)
+    let isLoaded = true
+
+    let programs = []
+    programs = useSelector(selectAllPrograms)
 
     const deleteProgramHandle = (e) => {
         const programId = e.currentTarget.id
-        console.log(programId)
         dispatch(shootingProgramDeleted({id: programId}))
-        history.push(`/`)
-        //api call to delete program
+        history.push("/")
     }
 
     const CustomCard = ({title, description, color, programId}) => {
@@ -30,18 +31,19 @@ export const ShootingProgramsList = () => {
             <Link to={"/program/" + programId}>
                 <Card
                     hoverable
+                    id={programId}
                     style={{width: 240, margin: "0 12.5px 25px 12.5px"}}
                     cover={
                         <div style={{height: "100px", backgroundColor: color}}>
-                            {/*<DeleteOutlined id={programId}
+                            <DeleteOutlined id={programId}
                                             style={{
                                                 color: "white",
                                                 fontSize: "20px",
                                                 float: "right",
-                                                margin: "10px"
+                                                margin: "10px",
                                             }}
                                             onClick={deleteProgramHandle}
-                            />*/}
+                            />
                         </div>
                     }
                 >
@@ -61,9 +63,22 @@ export const ShootingProgramsList = () => {
         />
     ))
 
-    return (
-        <>
-            {renderPrograms}
-        </>
-    )
+    if (isLoaded) {
+        return (<>{renderPrograms}</>)
+    } else {
+        return (
+            <div className="spinner-container" style={{alignSelf: "center", textAlign: "center", width: "100%"}}>
+                <Spin size={"large"}/>
+            </div>
+        )
+    }
+
+}
+
+function wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+        end = new Date().getTime();
+    }
 }
