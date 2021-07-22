@@ -9,7 +9,7 @@ const initialState = [
         weaponId: 1,
         targetId: 1,
         date: '17/07/2021',
-        color: '#ea6969',
+        color: '#aa50d7',
         program: [
             {key: 1, score: 8, direction: 'B'},
             {key: 2, score: 10, direction: 'C'},
@@ -25,7 +25,7 @@ const initialState = [
         weaponId: 1,
         targetId: 1,
         date: '04/06/2020',
-        color: '#b9d948',
+        color: '#3acd81',
         program: [
             {key: 1, score: 8, direction: 'B'},
             {key: 2, score: 10, direction: 'C'},

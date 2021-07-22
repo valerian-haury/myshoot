@@ -1,5 +1,5 @@
 import React from "react";
-import {Table, InputNumber, Form} from "antd";
+import {Table, InputNumber} from "antd";
 import {CloseCircleFilled} from "@ant-design/icons";
 import './programTable.css'
 

@@ -1,6 +1,4 @@
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
-import {useHistory} from "react-router-dom";
 import {shootingProgramAdded} from "./shootingProgramsSlice";
 import {TargetSelector} from "../Targets/TargetSelector";
 
@@ -37,6 +35,8 @@ export const ShootingProgramForm = ({data, onSave}) => {
             case 'weapon':
                 setWeaponId(parseInt(content))
                 break;
+            default:
+                console.log("ERROR - UNKNOWN SELECTION !")
         }
     }
 
@@ -174,16 +174,6 @@ export const ShootingProgramForm = ({data, onSave}) => {
                 </Form.Item>
                 <TargetSelector targetId={targetId} onClick={handleSelectorClick}/>
                 {/*<WeaponsSelector weaponsId={weaponId} onClick={handleSelectorClick}/>*/}
-                <Estimator targetId={targetId} program={formatedProgram} canGenerate={canGenerate}/>
-                <div className="divfix">
-                    <Form.Item>
-                        <Button className={"submit-button"} type="primary" htmlType="submit" disabled={!canSave}>
-                            SAUVEGARDER
-                        </Button>
-                    </Form.Item>
-                </div>
-            </Form>
-            <div style={{paddingTop: "60px"}}>
                 <Form.Item label="Nombre de coup :">
                     <Select value={programLenght} style={{width: 60}} onChange={handleShotNumberChange}>
                         {Array.from({length: 50}, (_, i) => i + 1).map(number => (
@@ -193,6 +183,16 @@ export const ShootingProgramForm = ({data, onSave}) => {
                 <ProgramTable lenght={programLenght} program={program} maxScore={maxScore}
                               onChange={handleProgramTableChange}
                 />
+                <div className="divfix">
+                    <Form.Item>
+                        <Button className={"submit-button"} type="primary" htmlType="submit" disabled={!canSave}>
+                            SAUVEGARDER
+                        </Button>
+                    </Form.Item>
+                </div>
+            </Form>
+            <div style={{paddingTop: "60px"}}>
+                <Estimator targetId={targetId} program={formatedProgram} canGenerate={canGenerate}/>
             </div>
         </section>
     )

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Circle, Layer, Line, Rect, Stage, Text, Image} from "react-konva";
+import {Circle, Layer, Stage, Image} from "react-konva";
 import useImage from "use-image";
 import {Button} from "antd";
 
@@ -82,6 +82,8 @@ function Canvas({ canvasSize, maxScore, target, program, canGenerate }) {
             case 'BR'://Bottom-right
                 angle = 0.125;
                 break;
+            default:
+                angle = 0;
         }
         return angle + getRandom(-0.0625, 0.0625);
     }
