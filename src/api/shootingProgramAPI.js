@@ -9,7 +9,7 @@ export function getAllShootingPrograms() {
             weaponId: 1,
             targetId: 1,
             date: '01/01/1970',
-            color: '#3acd81',
+            color: '#30e79e',
             program: [
                 {key: 1, score: 8, direction: 'B'},
                 {key: 2, score: 10, direction: 'C'},

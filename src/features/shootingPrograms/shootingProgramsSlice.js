@@ -31,7 +31,7 @@ const oldSTate = [
         weaponId: 1,
         targetId: 1,
         date: '04/06/2020',
-        color: '#3acd81',
+        color: '#3dd694',
         program: [
             {key: 1, score: 8, direction: 'B'},
             {key: 2, score: 10, direction: 'C'},

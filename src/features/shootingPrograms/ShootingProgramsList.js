@@ -1,5 +1,5 @@
 import React from "react"
-import {Card, Spin} from 'antd';
+import {Card, Spin, Tooltip} from 'antd';
 import {DeleteOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 
@@ -35,15 +35,17 @@ export const ShootingProgramsList = () => {
                     style={{width: 240, margin: "0 12.5px 25px 12.5px"}}
                     cover={
                         <div style={{height: "100px", backgroundColor: color}}>
-                            <DeleteOutlined id={programId}
-                                            style={{
-                                                color: "white",
-                                                fontSize: "20px",
-                                                float: "right",
-                                                margin: "10px",
-                                            }}
-                                            onClick={deleteProgramHandle}
-                            />
+                            <Tooltip title={() => <span style={{ color: "#ffffff", }}>Supprimer le programme</span>} placement="topLeft" color={"#ca3232"}>
+                                <DeleteOutlined id={programId}
+                                                style={{
+                                                    color: "white",
+                                                    fontSize: "20px",
+                                                    float: "right",
+                                                    margin: "10px",
+                                                }}
+                                                onClick={deleteProgramHandle}
+                                />
+                            </Tooltip>
                         </div>
                     }
                 >
