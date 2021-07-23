@@ -13,7 +13,7 @@ export const AddShootingProgram = () => {
             weaponId: 0,
             targetId: 0,
             maxScore: 5,
-            date: new Date(),
+            date: '',
             program: [{key: 1, score: null, direction: ''}],
         },
     )

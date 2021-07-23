@@ -82,7 +82,7 @@ export const ShootingProgramForm = ({data, onSave}) => {
         if (e) {
             setDate(e._d)
         } else {
-            setDate(new Date())
+            setDate('')
         }
     }
 
@@ -90,7 +90,7 @@ export const ShootingProgramForm = ({data, onSave}) => {
     const isDirectionSet = (currentValue) => currentValue.direction !== '';
     const isLowerThanMaxScore = (currentValue) => currentValue.score <= maxScore;
     const formatedProgram = program.slice(0, programLenght)
-    const canSave = ([title, shooter].every(Boolean) && formatedProgram.every(isScoreNotNull) && formatedProgram.every(isDirectionSet) && formatedProgram.every(isLowerThanMaxScore))
+    const canSave = ([title, shooter, date].every(Boolean) && formatedProgram.every(isScoreNotNull) && formatedProgram.every(isDirectionSet) && formatedProgram.every(isLowerThanMaxScore))
     const canGenerate = (formatedProgram.every(isScoreNotNull) && formatedProgram.every(isDirectionSet) && formatedProgram.every(isLowerThanMaxScore))
 
     const onFinish = () => {
@@ -178,7 +178,7 @@ export const ShootingProgramForm = ({data, onSave}) => {
                             <Option key={number} value={number}>{number}</Option>))}
                     </Select>
                 </Form.Item>
-                <ProgramTable lenght={programLenght} program={program} maxScore={maxScore}
+                <ProgramTable key={"form-program-table"} lenght={programLenght} program={program} maxScore={maxScore}
                               onChange={handleProgramTableChange}
                 />
                 <div className="divfix">

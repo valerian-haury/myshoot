@@ -58,7 +58,7 @@ export const ProgramTable = ({lenght, program, maxScore, onChange}) => {
             dataIndex: 'score',
             key: 'score',
             render: (score, shot) => (
-                <ScoreInput score={score} shot={shot}/>
+                ScoreInput({key: "scoreInput-" + shot.key, score: score, shot: shot})
             )
         },
         {
@@ -77,12 +77,12 @@ export const ProgramTable = ({lenght, program, maxScore, onChange}) => {
                 const isScoreNull = (shot.score === null)
                 const isDirectionNull = (shot.direction === '')
                 const isHigherThanMaxScore = (shot.score > maxScore)
-                console.log("direction null: " + isDirectionNull + " - score null: " + isScoreNull)
                 const endErrorMsg = (isScoreNull && !isDirectionNull ? "non défini" : " ") + (!isScoreNull && isDirectionNull ? "non définie" : "") + (isScoreNull && isDirectionNull ? "non définis" : "")
-                let errorMsg = (isScoreNull ? "score " : "") + ((isScoreNull && isDirectionNull) ? "et " : "") + (isDirectionNull ? "direction " : "") + endErrorMsg
-                if(isHigherThanMaxScore) errorMsg = "Le score est trop élevé par rapport à la cible choisie"
+                let errorMsg = (isScoreNull ? "Score " : "") + ((isScoreNull && isDirectionNull) ? "et " : "") + (isDirectionNull ? "Direction " : "") + endErrorMsg
+                if (isHigherThanMaxScore) errorMsg = "Le score est trop élevé par rapport à la cible choisie"
                 return (
-                    <Tooltip color={"#e55454"} title={errorMsg} placement="right" trigger={(isScoreNull || isDirectionNull || isHigherThanMaxScore) ? "hover" : "focus"}>
+                    <Tooltip color={"#e55454"} title={errorMsg} placement="right"
+                             trigger={(isScoreNull || isDirectionNull || isHigherThanMaxScore) ? "hover" : "focus"}>
                         <ExclamationCircleFilled
                             style={{
                                 fontSize: "15px",
@@ -115,13 +115,15 @@ export const ProgramTable = ({lenght, program, maxScore, onChange}) => {
 
     const ScoreInput = ({score, shot}) => {
         return (
-            <InputNumber min={1} max={maxScore} style={{maxWidth: 60}} defaultValue={score}
+            <InputNumber key={"inputNumber-" + shot.key} min={0} max={maxScore} style={{maxWidth: 100}}
+                         defaultValue={score}
                          onChange={(newScore) => onScoreInputChanged(shot.key, newScore)}/>
 
         )
     }
 
+
     return (
-        <Table pagination={false} columns={programColumn} dataSource={formatedProgram}/>
+        <Table columns={programColumn} dataSource={formatedProgram} pagination={false}/>
     )
 }
