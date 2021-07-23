@@ -77,11 +77,19 @@ export const ProgramTable = ({lenght, program, maxScore, onChange}) => {
                 const isScoreNull = (shot.score === null)
                 const isDirectionNull = (shot.direction === '')
                 const isHigherThanMaxScore = (shot.score > maxScore)
-                const endErrorMsg = (isScoreNull && !isDirectionNull ? "non défini" : " ") + (!isScoreNull && isDirectionNull ? "non définie" : "") + (isScoreNull && isDirectionNull ? "non définis" : "")
-                let errorMsg = (isScoreNull ? "Score " : "") + ((isScoreNull && isDirectionNull) ? "et " : "") + (isDirectionNull ? "Direction " : "") + endErrorMsg
-                if (isHigherThanMaxScore) errorMsg = "Le score est trop élevé par rapport à la cible choisie"
+                let errorMessage = ""
+
+                if (isScoreNull && isDirectionNull)
+                    errorMessage = "Score et direction non définis"
+                else if (isScoreNull)
+                    errorMessage = "Score non définis"
+                else if (isHigherThanMaxScore)
+                    errorMessage = "Le score est trop élevé par rapport à la cible choisie"
+                else if (isDirectionNull)
+                    errorMessage = "Direction non définie"
+
                 return (
-                    <Tooltip color={"#e55454"} title={errorMsg} placement="right"
+                    <Tooltip color={"#e55454"} title={errorMessage} placement="right"
                              trigger={(isScoreNull || isDirectionNull || isHigherThanMaxScore) ? "hover" : "focus"}>
                         <ExclamationCircleFilled
                             style={{

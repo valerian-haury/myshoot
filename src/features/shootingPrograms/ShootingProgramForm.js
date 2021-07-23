@@ -82,7 +82,7 @@ export const ShootingProgramForm = ({data, onSave}) => {
         if (e) {
             setDate(e._d)
         } else {
-            setDate('')
+            setDate("")
         }
     }
 
@@ -160,6 +160,7 @@ export const ShootingProgramForm = ({data, onSave}) => {
                 <Form.Item
                     label="Date"
                     name="date"
+                    initialValue={date ? moment(date, 'DD-MM-YYYY') : ""}
                     rules={[
                         {
                             required: true,
