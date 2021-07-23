@@ -160,7 +160,6 @@ export const ShootingProgramForm = ({data, onSave}) => {
                 <Form.Item
                     label="Date"
                     name="date"
-                    initialValue={moment(date, 'DD-MM-YYYY')}
                     rules={[
                         {
                             required: true,
@@ -168,7 +167,7 @@ export const ShootingProgramForm = ({data, onSave}) => {
                         },
                     ]}
                 >
-                    <DatePicker locale={locale} format={'DD-MM-YYYY'}
+                    <DatePicker style={{ width: "-webkit-fill-available", maxWidth: "30%"}} locale={locale} format={'DD-MM-YYYY'}
                                 onChange={onDateChange}/>
                 </Form.Item>
                 <TargetSelector targetId={targetId} onClick={handleSelectorClick}/>

@@ -36,7 +36,7 @@ function App() {
                         </Switch>
                     </div>
                 </Content>
-                <Footer style={{textAlign: 'center'}}>HEG IG Bachelor degree ©2021 - by V.HAURY</Footer>
+                <Footer style={{textAlign: 'center'}}>HEG IG Bachelor degree ©2021 - by V. Haury</Footer>
             </Layout>
         </Router>
 

@@ -1,6 +1,6 @@
 import React from "react";
-import {Table, InputNumber} from "antd";
-import {CloseCircleFilled} from "@ant-design/icons";
+import {Table, InputNumber, Tooltip} from "antd";
+import {CloseCircleFilled, ExclamationCircleFilled} from "@ant-design/icons";
 import './programTable.css'
 
 import T from "../../images/arrows/top.svg"
@@ -73,15 +73,25 @@ export const ProgramTable = ({lenght, program, maxScore, onChange}) => {
             title: '',
             dataIndex: 'unselected',
             key: 'unselected',
-            render: (e, shot) => (
-                <CloseCircleFilled
-                    style={{
-                        color: "#e55454",
-                        fontSize: "15px",
-                        display: ((shot.direction === '') || (shot.score === null) || (shot.score > maxScore)) ? "" : "none"
-                    }}
-                />
-            )
+            render: (e, shot) => {
+                const isScoreNull = (shot.score === null)
+                const isDirectionNull = (shot.direction === '')
+                const isHigherThanMaxScore = (shot.score > maxScore)
+                console.log("direction null: " + isDirectionNull + " - score null: " + isScoreNull)
+                const endErrorMsg = (isScoreNull && !isDirectionNull ? "non défini" : " ") + (!isScoreNull && isDirectionNull ? "non définie" : "") + (isScoreNull && isDirectionNull ? "non définis" : "")
+                let errorMsg = (isScoreNull ? "score " : "") + ((isScoreNull && isDirectionNull) ? "et " : "") + (isDirectionNull ? "direction " : "") + endErrorMsg
+                if(isHigherThanMaxScore) errorMsg = "Le score est trop élevé par rapport à la cible choisie"
+                return (
+                    <Tooltip color={"#e55454"} title={errorMsg} placement="right" trigger={(isScoreNull || isDirectionNull || isHigherThanMaxScore) ? "hover" : "focus"}>
+                        <ExclamationCircleFilled
+                            style={{
+                                fontSize: "15px",
+                                color: (isScoreNull || isDirectionNull || isHigherThanMaxScore) ? "#e55454" : "transparent"
+                            }}
+                        />
+                    </Tooltip>
+                )
+            }
         }
     ]
 
