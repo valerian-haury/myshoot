@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {shootingProgramAdded} from "./shootingProgramsSlice";
 import {TargetSelector} from "../Targets/TargetSelector";
 
 import {Form, Input, Button, DatePicker, Select} from "antd";
@@ -7,7 +6,7 @@ import locale from "antd/es/date-picker/locale/fr_FR";
 import moment from "moment";
 import {WeaponsSelector} from "../components/WeaponSelector";
 import {ProgramTable} from "../components/ProgramTable";
-import {Estimator} from "../Targets/Estimator";
+import {Estimator} from "../components/Estimator";
 
 
 const {Option} = Select

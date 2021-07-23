@@ -1,7 +1,13 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
+import {createSlice} from "@reduxjs/toolkit"
 import {nanoid} from 'nanoid'
+import {
+    createShootingProgram,
+    deleteShootingProgram,
+    editShootingProgram,
+    getAllShootingPrograms
+} from '../../api/shootingProgramAPI'
 
-const initialState = [
+const oldSTate = [
     {
         id: '1',
         title: 'Tir obligatoire 2021',
@@ -36,10 +42,8 @@ const initialState = [
     }
 ]
 
-export const fetchShootingPrograms = createAsyncThunk('shootingPrograms/fetchPrograms', async () => {
-    const response = initialState
-    return response
-})
+
+const initialState = getAllShootingPrograms()
 
 const shootingProgramsSlice = createSlice({
     name: 'shootingPrograms',
@@ -48,6 +52,7 @@ const shootingProgramsSlice = createSlice({
         shootingProgramAdded: {
             reducer(state, action) {
                 state.push(action.payload)
+                createShootingProgram(action.payload)
             },
             prepare(title, shooter, weaponId, targetId, date, program) {
                 var randomColor = require('randomcolor')
@@ -76,6 +81,8 @@ const shootingProgramsSlice = createSlice({
                 existingProgram.targetId = targetId
                 existingProgram.date = date
                 existingProgram.program = program
+
+                editShootingProgram(action.payload)
             }
         },
 
@@ -85,9 +92,9 @@ const shootingProgramsSlice = createSlice({
             if (existingProgram) {
                 const index = state.indexOf(existingProgram)
                 state.splice(index, 1)
-            }
 
-            //state.filter(item => item.id !== id)
+                deleteShootingProgram(action.payload)
+            }
         }
     }
 })
